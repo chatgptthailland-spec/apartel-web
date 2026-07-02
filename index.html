@@ -157,10 +157,31 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .road{position:fixed;left:2px;top:0;height:100vh;width:60px;z-index:30;pointer-events:none}
 @media(max-width:1160px){.road{display:none}}
 .road svg{display:block;width:60px;height:100%}
-.road .rd{fill:none;stroke:rgba(20,21,25,.12);stroke-width:6;stroke-linecap:round}
-.road .rd-done{fill:none;stroke:var(--red);stroke-width:6;stroke-linecap:round;filter:drop-shadow(0 2px 5px rgba(218,33,40,.45))}
-.road .rend{position:absolute;left:50%;transform:translateX(-50%);font-size:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
-.road .rend.top{top:0}.road .rend.bot{bottom:0}
+.road .rd{fill:none;stroke:rgba(30,32,38,.55);stroke-width:13;stroke-linecap:round}
+.road .rd-done{fill:none;stroke:var(--red);stroke-width:13;stroke-linecap:round;opacity:.92;filter:drop-shadow(0 2px 5px rgba(218,33,40,.4))}
+.road .rd-center{fill:none;stroke:rgba(255,255,255,.9);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
+.road .rend{position:absolute;left:50%;transform:translateX(-50%);font-size:22px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));z-index:2}
+.road .rend.top{top:-2px}.road .rend.bot{bottom:-2px}
+.road .wp{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font-size:18px;z-index:2;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));cursor:default}
+.road-cap{position:absolute;left:56px;transform:translateY(-50%);background:var(--red);color:#fff;font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:999px;white-space:nowrap;opacity:0;transition:opacity .2s;box-shadow:var(--shadow-s);z-index:3}
+.road-cap.show{opacity:1}
+
+/* reward at the villa (scroll finish) + confetti */
+.reward{position:fixed;inset:0;z-index:210;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,9,12,.62);backdrop-filter:blur(3px)}
+.reward.open{display:flex}
+.reward-card{position:relative;background:#fff;border-radius:22px;max-width:450px;width:100%;padding:30px 26px 24px;text-align:center;box-shadow:var(--shadow);animation:rpop .42s cubic-bezier(.2,1.3,.4,1)}
+@keyframes rpop{from{transform:scale(.86);opacity:0}to{transform:none;opacity:1}}
+.reward-card .em{font-size:46px;line-height:1}
+.reward-card h3{font-size:24px;margin:8px 0 4px}
+.reward-card p{color:var(--muted);font-size:14.5px;margin:0 0 8px}
+.reward-coupon{border:2px dashed var(--red);border-radius:14px;padding:14px;margin:14px 0;background:var(--red-tint)}
+.reward-coupon b{color:var(--red);font-size:15px;display:block}
+.reward-code{display:inline-block;font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:.06em;color:#fff;background:var(--red);border-radius:9px;padding:5px 18px;margin-top:8px}
+.reward-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.reward-x{position:absolute;top:10px;right:14px;font-size:24px;color:var(--muted);cursor:pointer;background:none;border:0;line-height:1}
+.confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:220;pointer-events:none;border-radius:2px;will-change:transform,opacity}
+@keyframes cfall{to{transform:translateY(104vh) rotate(720deg);opacity:.85}}
+@media(prefers-reduced-motion:reduce){.confetti{display:none}}
 #roadBike{position:absolute;left:0;top:0;width:46px;height:auto;transform:translate(-50%,-50%);border-radius:10px;border:2px solid #fff;background:#fff;box-shadow:0 5px 13px rgba(0,0,0,.32);will-change:left,top}
 @media(prefers-reduced-motion:reduce){#roadBike{display:none}.road .rd-done{stroke-dasharray:none!important;stroke-dashoffset:0!important;opacity:.5}}
 
@@ -462,9 +483,29 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
   <svg viewBox="0 0 60 1000" preserveAspectRatio="none">
     <path class="rd" id="roadPath" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
     <path class="rd-done" id="roadDone" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
+    <path class="rd-center" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
   </svg>
   <span class="rend bot" title="Ваша вилла">🏝️</span>
   <img id="roadBike" src="img/01_Honda_ADV160_NEW_2026_clean.jpg" alt="">
+</div>
+
+<div class="reward" id="reward" aria-hidden="true">
+  <div class="reward-card">
+    <button class="reward-x" id="rewardX" aria-label="Закрыть">×</button>
+    <div class="em">🎉🏝️</div>
+    <h3>Вы доехали до виллы!</h3>
+    <p>Спасибо, что внимательно изучили наш сайт 🙌</p>
+    <div class="reward-coupon">
+      <b>🎟 Купон: бесплатная доставка байка до вашей виллы</b>
+      <span class="reward-code">ВИЛЛА</span>
+      <p style="margin:9px 0 0">Назовите кодовое слово в Telegram или WhatsApp</p>
+    </div>
+    <p>🎁 В подарок — гайд <b>«Пхукет за 3 дня»</b>: лучшие места, готовый маршрут и скидки от наших партнёров.</p>
+    <div class="reward-btns">
+      <a class="btn primary sm" href="https://t.me/apartel1?text=Здравствуйте!%20Изучил%20сайт%20—%20хочу%20купон%20ВИЛЛА%20(бесплатная%20доставка)%20и%20гайд%20«Пхукет%20за%203%20дня»" target="_blank" rel="noopener">Забрать в Telegram</a>
+      <a class="btn wa sm" href="https://wa.me/66834083912?text=Здравствуйте!%20Хочу%20купон%20ВИЛЛА%20и%20гайд%20по%20Пхукету" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
 </div>
 
 <div class="lb" id="lb" aria-hidden="true">
@@ -550,17 +591,50 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const path=document.getElementById('roadPath'), done=document.getElementById('roadDone'), bike=document.getElementById('roadBike');
   const len=path.getTotalLength(); done.style.strokeDasharray=len;
+  /* landmark stops along the journey across Phuket (наведи — название) */
+  const WP=[{p:.14,i:'🏪',t:'7-Eleven по пути'},{p:.30,i:'🏖️',t:'Патонг'},{p:.46,i:'🐘',t:'Слоны'},
+            {p:.62,i:'🛕',t:'Храм'},{p:.78,i:'🌴',t:'Ката / Карон'},{p:.92,i:'🏍️',t:'Почти на месте'}];
+  const wpEls=WP.map(w=>{const s=document.createElement('span');s.className='wp';s.textContent=w.i;s.title=w.t;road.appendChild(s);return s;});
+  function place(){ const H=road.clientHeight;
+    WP.forEach((w,k)=>{const pt=path.getPointAtLength(w.p*len);wpEls[k].style.left=pt.x+'px';wpEls[k].style.top=(pt.y/1000*H)+'px';}); }
   let tick=false;
   function upd(){
     tick=false;
     const max=document.documentElement.scrollHeight-innerHeight;
     const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
-    const pt=path.getPointAtLength(p*len), H=road.clientHeight;
+    const H=road.clientHeight, l=p*len;
+    const pt=path.getPointAtLength(l), pt2=path.getPointAtLength(Math.min(len,l+2));
+    const lean=Math.max(-16,Math.min(16,(pt2.x-pt.x)*6));
     bike.style.left=pt.x+'px'; bike.style.top=(pt.y/1000*H)+'px';
+    bike.style.transform=`translate(-50%,-50%) rotate(${lean}deg)`;
     done.style.strokeDashoffset=len*(1-p);
   }
   function onScrollRoad(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
-  upd(); addEventListener('scroll',onScrollRoad,{passive:true}); addEventListener('resize',upd);
+  place(); upd();
+  addEventListener('scroll',onScrollRoad,{passive:true});
+  addEventListener('resize',()=>{place();upd();});
+})();
+
+/* ---- reward at the villa: confetti + free-delivery coupon (once per session) ---- */
+(function(){
+  const rw=document.getElementById('reward'); if(!rw) return;
+  let shown=sessionStorage.getItem('apartel_reward')==='1';
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function confetti(){
+    if(reduce) return;
+    const cs=['#DA2128','#ffffff','#f0b429','#25D366','#111'];
+    for(let k=0;k<95;k++){ const s=document.createElement('div'); s.className='confetti';
+      s.style.left=Math.random()*100+'vw'; s.style.background=cs[k%cs.length];
+      s.style.animation=`cfall ${1.5+Math.random()*1.5}s ${Math.random()*.5}s ease-in forwards`;
+      document.body.appendChild(s); setTimeout(()=>s.remove(),3400); }
+  }
+  function open(){ if(shown)return; shown=true; sessionStorage.setItem('apartel_reward','1'); rw.classList.add('open'); confetti(); }
+  function close(){ rw.classList.remove('open'); }
+  document.getElementById('rewardX').addEventListener('click',close);
+  rw.addEventListener('click',e=>{ if(e.target===rw) close(); });
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&rw.classList.contains('open')) close(); });
+  function check(){ const max=document.documentElement.scrollHeight-innerHeight; if(max>0 && scrollY/max>=.985) open(); }
+  addEventListener('scroll',check,{passive:true}); check();
 })();
 </script>
 </body>
