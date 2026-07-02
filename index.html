@@ -24,7 +24,7 @@
   --shadow-s:0 6px 22px -12px rgba(20,21,25,.22);
   --shadow:0 20px 55px -22px rgba(20,21,25,.30);
   --shadow-red:0 14px 30px -12px rgba(218,33,40,.55);
-  --r:20px; --r-s:13px; --wrap:1180px;
+  --r:20px; --r-s:13px; --wrap:1080px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -48,6 +48,8 @@ h1,h2,h3{font-family:var(--disp);line-height:1.06;letter-spacing:-.02em}
 .btn.ghost-w{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.6);backdrop-filter:blur(4px)}
 .btn.ghost-w:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
 .btn.sm{padding:11px 18px;font-size:14px}
+.btn.wa{background:#25D366;color:#fff;border-color:transparent}
+.btn.wa:hover{background:#1eb457;transform:translateY(-2px)}
 
 /* header */
 header{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .3s,box-shadow .3s,border-color .3s;border-bottom:1px solid transparent}
@@ -123,6 +125,44 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .bike .ptable b{color:var(--ink);font-weight:800;white-space:nowrap}
 .bike .btn{width:100%;margin-top:auto}
 .fleet-note{margin-top:22px;font-size:13.5px;color:var(--muted);text-align:center}
+
+/* photo zoom hint + lightbox gallery */
+.bike .ph{cursor:zoom-in}
+.ph-zoom{position:absolute;right:12px;bottom:12px;z-index:2;background:rgba(20,21,25,.72);color:#fff;font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:999px;opacity:0;transition:opacity .2s;backdrop-filter:blur(4px)}
+.bike:hover .ph-zoom{opacity:1}
+.lb{position:fixed;inset:0;z-index:200;background:rgba(8,9,12,.93);display:none;align-items:center;justify-content:center;padding:24px}
+.lb.open{display:flex}
+.lb-stage{position:relative;max-width:1000px;width:100%}
+.lb-img{width:100%;max-height:74vh;object-fit:contain;border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+.lb-cap{color:#fff;text-align:center;font-weight:700;margin-top:14px;font-size:15px}
+.lb-thumbs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.lb-thumbs img{width:66px;height:44px;object-fit:cover;border-radius:8px;border:2px solid transparent;opacity:.55;cursor:pointer;transition:.15s}
+.lb-thumbs img.on,.lb-thumbs img:hover{opacity:1;border-color:#fff}
+.lb-nav{position:absolute;top:37vh;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.15s}
+.lb-nav:hover{background:rgba(255,255,255,.26)}
+.lb-nav.prev{left:-6px}.lb-nav.next{right:-6px}
+.lb-x{position:fixed;top:18px;right:22px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:26px;cursor:pointer;display:grid;place-items:center;z-index:201}
+.lb-x:hover,.lb-nav:hover{background:rgba(255,255,255,.26)}
+@media(max-width:560px){.lb-nav.prev{left:2px}.lb-nav.next{right:2px}.lb-nav{width:42px;height:42px}}
+
+/* district actions + Google Maps route link */
+.dacts{margin-top:auto;display:flex;flex-direction:column;gap:9px;padding-top:16px}
+.district .arrow{margin-top:0;padding-top:0}
+.maplink{font-weight:700;font-size:13.5px;color:var(--ink);display:inline-flex;align-items:center;gap:6px;opacity:.82}
+.maplink:hover{opacity:1;color:var(--red)}
+.district.red .maplink{color:#fff;opacity:.92}
+.district.red .maplink:hover{opacity:1}
+
+/* scroll road — bike travels from APARTEL garage to your villa */
+.road{position:fixed;left:2px;top:0;height:100vh;width:60px;z-index:30;pointer-events:none}
+@media(max-width:1160px){.road{display:none}}
+.road svg{display:block;width:60px;height:100%}
+.road .rd{fill:none;stroke:rgba(20,21,25,.12);stroke-width:6;stroke-linecap:round}
+.road .rd-done{fill:none;stroke:var(--red);stroke-width:6;stroke-linecap:round;filter:drop-shadow(0 2px 5px rgba(218,33,40,.45))}
+.road .rend{position:absolute;left:50%;transform:translateX(-50%);font-size:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.road .rend.top{top:0}.road .rend.bot{bottom:0}
+#roadBike{position:absolute;left:0;top:0;width:46px;height:auto;transform:translate(-50%,-50%);border-radius:10px;border:2px solid #fff;background:#fff;box-shadow:0 5px 13px rgba(0,0,0,.32);will-change:left,top}
+@media(prefers-reduced-motion:reduce){#roadBike{display:none}.road .rd-done{stroke-dasharray:none!important;stroke-dashoffset:0!important;opacity:.5}}
 
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -211,7 +251,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 <header id="hdr">
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="APARTEL car & bike">
-      <img src="img/logo_h_trim.png" alt="APARTEL car & bike">
+      <img src="img/logo_trans.png" alt="APARTEL car & bike">
     </a>
     <nav class="nav-links">
       <a href="#fleet">Парк и цены</a>
@@ -246,6 +286,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 15.6 9.6 20c.4 0 .6-.2.8-.4l2-1.9 4.1 3c.8.4 1.3.2 1.5-.7l2.7-12.7c.3-1.1-.4-1.6-1.2-1.3L3.4 9.9c-1.1.4-1.1 1-.2 1.3l4.2 1.3 9.7-6.1c.5-.3.9-.1.5.2z"/></svg>
         Цены и бронь в Telegram
       </a>
+      <a class="btn wa" href="https://wa.me/66834083912?text=Здравствуйте!%20Интересует%20аренда%20байка%20на%20Пхукете" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4zm-2.7 4c-.2 0-.5 0-.7.4-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 4.9 4.2 2.4 1 2.9.8 3.4.8.5-.1 1.6-.7 1.9-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.4l-2-1c-.3-.1-.5-.2-.7.1l-.7 1c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.3c-.2-.5-.4-.5-.6-.5z"/></svg>WhatsApp</a>
       <a class="btn ghost-w" href="#fleet">Смотреть парк и цены</a>
     </div>
     <div class="hero-usps">
@@ -306,19 +347,28 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
         <span class="tag">Комфорт</span>
         <h3>Bang Tao / Laguna</h3>
         <p>Виллы и апартаменты, гости Laguna, Boat Avenue, Porto de Phuket. Привезём к дому — всё понятно, без сюрпризов.</p>
-        <a class="arrow" href="https://t.me/apartel1" target="_blank" rel="noopener">Заказать доставку →</a>
+        <div class="dacts">
+          <a class="arrow" href="https://t.me/apartel1" target="_blank" rel="noopener">Заказать доставку →</a>
+          <a class="maplink" href="https://www.google.com/maps/dir/?api=1&destination=Bang+Tao+Beach%2C+Phuket" target="_blank" rel="noopener">📍 Маршрут в Google Maps</a>
+        </div>
       </div>
       <div class="district reveal d1">
         <span class="tag">Скорость</span>
         <h3>Patong</h3>
         <p>Нужен байк сейчас? Быстрый ответ, понятные условия, короткие и длинные аренды.</p>
-        <a class="arrow" href="https://t.me/apartel1" target="_blank" rel="noopener">Нужен байк сейчас →</a>
+        <div class="dacts">
+          <a class="arrow" href="https://t.me/apartel1" target="_blank" rel="noopener">Нужен байк сейчас →</a>
+          <a class="maplink" href="https://www.google.com/maps/dir/?api=1&destination=Patong+Beach%2C+Phuket" target="_blank" rel="noopener">📍 Маршрут в Google Maps</a>
+        </div>
       </div>
       <div class="district reveal d2">
         <span class="tag">Весь остров</span>
         <h3>Другие районы</h3>
         <p>Ката, Карон, Камала и другие районы Пхукета — доставка по согласованию. Напишите адрес.</p>
-        <a class="arrow" href="https://t.me/apartel1" target="_blank" rel="noopener">Уточнить доставку →</a>
+        <div class="dacts">
+          <a class="arrow" href="https://t.me/apartel1" target="_blank" rel="noopener">Уточнить доставку →</a>
+          <a class="maplink" href="https://www.google.com/maps/dir/?api=1&destination=Phuket" target="_blank" rel="noopener">📍 Маршрут в Google Maps</a>
+        </div>
       </div>
     </div>
   </div>
@@ -370,6 +420,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
           <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--red)"><path d="M9.8 15.6 9.6 20c.4 0 .6-.2.8-.4l2-1.9 4.1 3c.8.4 1.3.2 1.5-.7l2.7-12.7c.3-1.1-.4-1.6-1.2-1.3L3.4 9.9c-1.1.4-1.1 1-.2 1.3l4.2 1.3 9.7-6.1c.5-.3.9-.1.5.2z"/></svg>
           Цены и бронь в Telegram
         </a>
+        <a class="btn wa" href="https://wa.me/66834083912?text=Здравствуйте!%20Интересует%20аренда%20байка%20на%20Пхукете" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4zm-2.7 4c-.2 0-.5 0-.7.4-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 4.9 4.2 2.4 1 2.9.8 3.4.8.5-.1 1.6-.7 1.9-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.4l-2-1c-.3-.1-.5-.2-.7.1l-.7 1c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.3c-.2-.5-.4-.5-.6-.5z"/></svg>WhatsApp</a>
         <a class="btn ghost-w" href="https://www.instagram.com/apartel.rentcar/" target="_blank" rel="noopener">Instagram @apartel.rentcar</a>
       </div>
     </div>
@@ -379,7 +430,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 <footer>
   <div class="wrap foot">
     <div>
-      <div class="brand"><img src="img/logo_h_trim.png" alt="APARTEL car & bike"></div>
+      <div class="brand"><img src="img/logo_trans.png" alt="APARTEL car & bike"></div>
       <p>Аренда байков и авто на Пхукете с доставкой. Свежие модели 2026, честный залог, шлем в подарок, оплата в любой валюте, русскоговорящий стаф.</p>
     </div>
     <div>
@@ -392,6 +443,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
     </div>
     <div>
       <h4>Связаться</h4>
+      <a href="https://wa.me/66834083912" target="_blank" rel="noopener">WhatsApp — +66 83 408 3912</a>
       <a href="https://t.me/apartel1" target="_blank" rel="noopener">Telegram — @apartel1</a>
       <a href="https://www.instagram.com/apartel.rentcar/" target="_blank" rel="noopener">Instagram — apartel.rentcar</a>
       <a href="#fleet">Bang Tao · Laguna · Patong</a>
@@ -401,8 +453,29 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 </footer>
 
 <div class="mcta">
-  <a class="btn ghost sm" href="tel:" onclick="return false" style="display:none"></a>
-  <a class="btn primary sm" href="https://t.me/apartel1" target="_blank" rel="noopener">Цены и бронь в Telegram</a>
+  <a class="btn wa sm" href="https://wa.me/66834083912" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn primary sm" href="https://t.me/apartel1" target="_blank" rel="noopener">Telegram</a>
+</div>
+
+<div class="road" id="road" aria-hidden="true">
+  <span class="rend top" title="Гараж APARTEL">🏍️</span>
+  <svg viewBox="0 0 60 1000" preserveAspectRatio="none">
+    <path class="rd" id="roadPath" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
+    <path class="rd-done" id="roadDone" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
+  </svg>
+  <span class="rend bot" title="Ваша вилла">🏝️</span>
+  <img id="roadBike" src="img/01_Honda_ADV160_NEW_2026_clean.jpg" alt="">
+</div>
+
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="lb-x" id="lbX" aria-label="Закрыть">×</button>
+  <div class="lb-stage">
+    <button class="lb-nav prev" id="lbPrev" aria-label="Назад">‹</button>
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <button class="lb-nav next" id="lbNext" aria-label="Вперёд">›</button>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-thumbs" id="lbThumbs"></div>
+  </div>
 </div>
 
 <script>
@@ -422,7 +495,7 @@ const BIKES=[
 const fg=document.getElementById('fleetGrid');
 BIKES.forEach((b,i)=>fg.insertAdjacentHTML('beforeend',`
  <article class="bike reveal ${i%4? 'd'+(i%4):''}">
-   <div class="ph">${b.new?'<span class="flag">NEW 2026</span>':''}<img src="img/${b.img}" alt="${b.n}" loading="lazy"></div>
+   <div class="ph" data-gi="${i}" title="Открыть фото">${b.new?'<span class="flag">NEW 2026</span>':''}<span class="ph-zoom">⤢ смотреть</span><img src="img/${b.img}" alt="${b.n}" loading="lazy"></div>
    <div class="body">
      <h3>${b.n}</h3><div class="who">${b.who}</div>
      <div class="price"><span class="per">от</span><span class="num">${b.from}</span><span class="per">฿ / день</span></div>
@@ -436,6 +509,31 @@ BIKES.forEach((b,i)=>fg.insertAdjacentHTML('beforeend',`
    </div>
  </article>`));
 
+/* ---- lightbox gallery ---- */
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'),
+      lbCap=document.getElementById('lbCap'), lbThumbs=document.getElementById('lbThumbs');
+let gList=[], gIdx=0, gName='';
+function gShow(){
+  lbImg.src='img/'+gList[gIdx]; lbImg.alt=gName;
+  lbCap.textContent=gName+(gList.length>1?`  ·  ${gIdx+1}/${gList.length}`:'');
+  lbThumbs.innerHTML=gList.map((s,k)=>`<img src="img/${s}" data-t="${k}" class="${k===gIdx?'on':''}" alt="">`).join('');
+  lb.querySelectorAll('.lb-nav').forEach(n=>n.style.display=gList.length>1?'grid':'none');
+}
+function gOpen(i){
+  const b=BIKES[i]; gList=(b.gallery&&b.gallery.length)?b.gallery:[b.img]; gIdx=0; gName=b.n;
+  gShow(); lb.classList.add('open'); document.body.style.overflow='hidden';
+}
+function gClose(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+function gStep(d){ gIdx=(gIdx+d+gList.length)%gList.length; gShow(); }
+fg.addEventListener('click',e=>{ const p=e.target.closest('[data-gi]'); if(p) gOpen(+p.dataset.gi); });
+document.getElementById('lbX').addEventListener('click',gClose);
+document.getElementById('lbPrev').addEventListener('click',()=>gStep(-1));
+document.getElementById('lbNext').addEventListener('click',()=>gStep(1));
+lbThumbs.addEventListener('click',e=>{ const t=e.target.closest('[data-t]'); if(t){ gIdx=+t.dataset.t; gShow(); } });
+lb.addEventListener('click',e=>{ if(e.target===lb) gClose(); });
+addEventListener('keydown',e=>{ if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')gClose(); else if(e.key==='ArrowLeft')gStep(-1); else if(e.key==='ArrowRight')gStep(1); });
+
 const hdr=document.getElementById('hdr');
 const onScroll=()=>hdr.classList.toggle('scrolled',scrollY>60);
 onScroll(); addEventListener('scroll',onScroll,{passive:true});
@@ -445,6 +543,25 @@ mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- scroll road: 🛵 rides from APARTEL garage (top) to your villa (bottom) ---- */
+(function(){
+  const road=document.getElementById('road'); if(!road) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const path=document.getElementById('roadPath'), done=document.getElementById('roadDone'), bike=document.getElementById('roadBike');
+  const len=path.getTotalLength(); done.style.strokeDasharray=len;
+  let tick=false;
+  function upd(){
+    tick=false;
+    const max=document.documentElement.scrollHeight-innerHeight;
+    const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+    const pt=path.getPointAtLength(p*len), H=road.clientHeight;
+    bike.style.left=pt.x+'px'; bike.style.top=(pt.y/1000*H)+'px';
+    done.style.strokeDashoffset=len*(1-p);
+  }
+  function onScrollRoad(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
+  upd(); addEventListener('scroll',onScrollRoad,{passive:true}); addEventListener('resize',upd);
+})();
 </script>
 </body>
 </html>
