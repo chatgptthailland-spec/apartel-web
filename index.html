@@ -183,7 +183,7 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:220;pointer-events:none;border-radius:2px;will-change:transform,opacity}
 @keyframes cfall{to{transform:translateY(104vh) rotate(720deg);opacity:.85}}
 @media(prefers-reduced-motion:reduce){.confetti{display:none}}
-#roadBike{position:absolute;left:0;top:0;width:46px;height:auto;transform:translate(-50%,-50%);border-radius:10px;border:2px solid #fff;background:#fff;box-shadow:0 5px 13px rgba(0,0,0,.32);will-change:left,top}
+#roadBike{position:absolute;left:0;top:0;width:60px;height:auto;transform:translate(-50%,-50%);border-radius:11px;border:2.5px solid #fff;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,.36);will-change:left,top;z-index:3}
 @media(prefers-reduced-motion:reduce){#roadBike{display:none}.road .rd-done{stroke-dasharray:none!important;stroke-dashoffset:0!important;opacity:.5}}
 
 /* steps */
@@ -483,9 +483,9 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 <div class="road" id="road" aria-hidden="true">
   <span class="rend top" title="Гараж APARTEL">🏍️</span>
   <svg viewBox="0 0 60 1000" preserveAspectRatio="none">
-    <path class="rd" id="roadPath" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
-    <path class="rd-done" id="roadDone" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
-    <path class="rd-center" d="M34 10 C 22 120 46 240 34 360 C 22 480 46 600 34 720 C 22 840 45 930 34 990"/>
+    <path class="rd" id="roadPath" d="M35 10 C 27 120 43 240 35 360 C 27 480 43 600 35 720 C 27 840 42 930 35 990"/>
+    <path class="rd-done" id="roadDone" d="M35 10 C 27 120 43 240 35 360 C 27 480 43 600 35 720 C 27 840 42 930 35 990"/>
+    <path class="rd-center" d="M35 10 C 27 120 43 240 35 360 C 27 480 43 600 35 720 C 27 840 42 930 35 990"/>
   </svg>
   <span class="rend bot" title="Ваша вилла">🏝️</span>
   <img id="roadBike" src="img/01_Honda_ADV160_NEW_2026_clean.jpg" alt="">
@@ -594,8 +594,10 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const path=document.getElementById('roadPath'), done=document.getElementById('roadDone'), bike=document.getElementById('roadBike');
   const len=path.getTotalLength(); done.style.strokeDasharray=len;
   /* landmark stops along the journey across Phuket (наведи — название) */
-  const WP=[{p:.14,i:'🏪',t:'7-Eleven по пути'},{p:.30,i:'🏖️',t:'Патонг'},{p:.46,i:'🐘',t:'Слоны'},
-            {p:.62,i:'🛕',t:'Храм'},{p:.78,i:'🌴',t:'Ката / Карон'},{p:.92,i:'🏍️',t:'Почти на месте'}];
+  const WP=[{p:.11,i:'🏪',t:'7-Eleven по пути'},{p:.23,i:'🌃',t:'Бангла · Патонг — веселье'},
+            {p:.36,i:'🏄',t:'Ката — сёрф и спорт-стрит'},{p:.49,i:'🏖️',t:'Лаян — тихий пляж'},
+            {p:.61,i:'🍌',t:'Banana Beach'},{p:.74,i:'💎',t:'Bang Tao — люкс, Laguna'},
+            {p:.86,i:'🐘',t:'Слоны'},{p:.94,i:'🛕',t:'Храм — почти на вилле'}];
   const wpEls=WP.map(w=>{const s=document.createElement('span');s.className='wp';s.textContent=w.i;s.title=w.t;road.appendChild(s);return s;});
   function place(){ const H=road.clientHeight;
     WP.forEach((w,k)=>{const pt=path.getPointAtLength(w.p*len);wpEls[k].style.left=pt.x+'px';wpEls[k].style.top=(pt.y/1000*H)+'px';}); }
