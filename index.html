@@ -106,7 +106,8 @@ header.scrolled .burger span{background:var(--ink)}
 
 /* sections */
 section.blk{padding:clamp(58px,8vw,100px) 0}
-.blk.sand{background:var(--sand)}
+.blk.sand{background:transparent}
+.blk.sand>.wrap{background:var(--sand);border-radius:28px;padding-top:40px;padding-bottom:44px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
 .sec-head{max-width:740px;margin-bottom:40px}
 .sec-head.center{margin-inline:auto;text-align:center}
 .sec-head.center .eyebrow{justify-content:center}
@@ -160,18 +161,27 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .district.red .maplink:hover{opacity:1}
 
 /* scroll road — bike travels from APARTEL garage to your villa */
-.road{position:fixed;left:6px;top:0;height:100vh;width:80px;z-index:30;pointer-events:none}
-@media(max-width:1160px){.road{display:none}}
-.road svg.rdsvg{display:block;width:80px;height:100%}
-.road .rd{fill:none;stroke:#26282e;stroke-width:22;stroke-linecap:round}
-.road .rd-done{fill:none;stroke:var(--red);stroke-width:22;stroke-linecap:round;opacity:.95;filter:drop-shadow(0 2px 6px rgba(218,33,40,.45))}
-.road .rd-center{fill:none;stroke:#ffd24a;stroke-width:2.5;stroke-dasharray:7 10;stroke-linecap:round}
-.road .rend{position:absolute;left:50%;transform:translateX(-50%);z-index:3;width:34px;height:34px;background:var(--red);color:#fff;border:3px solid #fff;border-radius:50%;display:grid;place-items:center;box-shadow:0 3px 9px rgba(0,0,0,.35)}
-.road .rend.top{top:-2px}.road .rend.bot{bottom:-2px}
-.road .rend svg{width:19px;height:19px}
-.road .wp{position:absolute;left:0;top:0;transform:translate(-50%,-50%);z-index:2;width:34px;height:34px;border-radius:50%;background:#fff;border:2.5px solid var(--red);color:var(--red);display:grid;place-items:center;box-shadow:0 3px 8px rgba(0,0,0,.3);animation:wpPulse 2.4s ease-in-out infinite}
-.road .wp svg{width:19px;height:19px}
-@keyframes wpPulse{0%,100%{box-shadow:0 3px 8px rgba(0,0,0,.3),0 0 0 0 rgba(218,33,40,.45)}50%{box-shadow:0 3px 8px rgba(0,0,0,.3),0 0 0 8px rgba(218,33,40,0)}}
+/* ---- JOURNEY: big black serpentine road across the WHOLE page (astronaut-style) ---- */
+#journey{position:absolute;left:0;top:0;width:100%;z-index:0;pointer-events:none;overflow:hidden}
+#journey svg{display:block}
+.jrd{fill:none;stroke:#26282e;stroke-linecap:round}
+.jrd-done{fill:none;stroke:var(--red);stroke-linecap:round;opacity:.9}
+.jrd-center{fill:none;stroke:#ffd24a;stroke-width:4;stroke-dasharray:16 22;stroke-linecap:round;opacity:.95}
+#jbike{position:absolute;left:0;top:0;width:170px;height:auto;will-change:left,top,transform;z-index:2;filter:drop-shadow(0 14px 16px rgba(0,0,0,.35))}
+@media(max-width:1400px){#jbike{width:150px}}
+.jwp{position:absolute;transform:translate(-50%,-50%);z-index:1;width:46px;height:46px;border-radius:50%;background:#fff;border:3px solid var(--red);color:var(--red);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.3);animation:wpPulse 2.4s ease-in-out infinite}
+.jwp svg{width:24px;height:24px}
+.jwp.hit{background:var(--red);color:#fff}
+@keyframes wpPulse{0%,100%{box-shadow:0 4px 12px rgba(0,0,0,.3),0 0 0 0 rgba(218,33,40,.5)}50%{box-shadow:0 4px 12px rgba(0,0,0,.3),0 0 0 12px rgba(218,33,40,0)}}
+/* content above the road */
+.topbar,header,section,footer,.mcta{position:relative;z-index:2}
+header{z-index:60}
+@media(max-width:900px){#journey{display:none}}
+/* hero garage bike (заставка) */
+.hero-garage{position:absolute;right:4%;bottom:8%;z-index:3;text-align:center;pointer-events:none}
+.hero-garage img{width:min(30vw,430px);height:auto;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45));animation:bikeBob 2.6s ease-in-out infinite}
+.hero-garage .plate{display:inline-block;background:var(--red);color:#fff;font-family:var(--disp);font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;padding:8px 18px;border-radius:10px;box-shadow:var(--shadow-red);margin-bottom:10px}
+@media(max-width:900px){.hero-garage{position:static;margin-top:22px;text-align:left}.hero-garage img{width:min(70vw,340px)}}
 /* checkpoint popup (game HUD, bottom-right) */
 .cp{position:fixed;right:20px;bottom:20px;z-index:120;width:252px;max-width:78vw;background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:14px 16px;border-left:4px solid var(--red);transform:translateY(16px);opacity:0;pointer-events:none;transition:transform .3s cubic-bezier(.2,1,.3,1),opacity .3s}
 .cp.show{transform:none;opacity:1}
@@ -205,11 +215,8 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:220;pointer-events:none;border-radius:2px;will-change:transform,opacity}
 @keyframes cfall{to{transform:translateY(104vh) rotate(720deg);opacity:.85}}
 @media(prefers-reduced-motion:reduce){.confetti{display:none}}
-#roadBike{position:absolute;left:0;top:0;width:66px;height:66px;transform:translate(-50%,-50%);will-change:left,top,transform;z-index:4;filter:drop-shadow(0 5px 7px rgba(0,0,0,.3))}
-#roadBike .bikeInner{display:block;width:100%;height:100%;animation:bikeBob 1s ease-in-out infinite}
-#roadBike svg{width:100%;height:100%;display:block}
-@keyframes bikeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
-@media(prefers-reduced-motion:reduce){.road,.cp{display:none}}
+@keyframes bikeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){#journey,.cp,.hero-garage img{display:none;animation:none}}
 
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -341,6 +348,10 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Шлем в подарок</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Честный залог</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Оплата в любой валюте</span>
+    </div>
+    <div class="hero-garage">
+      <div class="plate">Гараж APARTEL</div>
+      <img id="garageBike" src="img/bike_adv_cut.png" alt="Honda ADV160 2026 — готов к выдаче">
     </div>
   </div>
 </section>
@@ -505,26 +516,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
   <a class="btn primary sm" href="https://t.me/apartel1" target="_blank" rel="noopener">Telegram</a>
 </div>
 
-<div class="road" id="road" aria-hidden="true">
-  <span class="rend top" title="Гараж APARTEL"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 10 12 4l9 6v10h-4v-6H7v6H3z"/></svg></span>
-  <svg class="rdsvg" viewBox="0 0 80 1000" preserveAspectRatio="none">
-    <path class="rd" id="roadPath" d="M42 12 C 26 120 58 240 42 360 C 26 480 58 600 42 720 C 26 840 58 930 42 992"/>
-    <path class="rd-done" id="roadDone" d="M42 12 C 26 120 58 240 42 360 C 26 480 58 600 42 720 C 26 840 58 930 42 992"/>
-    <path class="rd-center" d="M42 12 C 26 120 58 240 42 360 C 26 480 58 600 42 720 C 26 840 58 930 42 992"/>
-  </svg>
-  <span class="rend bot" title="Ваша вилла"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 11h3v9h6v-5h2v5h6v-9h3z"/></svg></span>
-  <div id="roadBike"><span class="bikeInner"><svg viewBox="0 0 64 64" fill="none">
-    <circle cx="17" cy="49" r="9" fill="#1a1a1a"/><circle cx="17" cy="49" r="3.4" fill="#9aa0a6"/>
-    <circle cx="49" cy="49" r="9" fill="#1a1a1a"/><circle cx="49" cy="49" r="3.4" fill="#9aa0a6"/>
-    <path d="M13 47 Q10 35 24 35 L40 35 Q50 35 52 47" stroke="#DA2128" stroke-width="5.5" stroke-linecap="round"/>
-    <rect x="22" y="31" width="17" height="6" rx="3" fill="#b0161c"/>
-    <path d="M40 35 L45 23 L50 23" stroke="#DA2128" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="31" cy="15" r="6.2" fill="#2a2d34"/>
-    <path d="M31 21 L29 34" stroke="#2a2d34" stroke-width="6.5" stroke-linecap="round"/>
-    <path d="M30 24 L45 23" stroke="#2a2d34" stroke-width="4.2" stroke-linecap="round"/>
-    <path d="M29 34 L25 43" stroke="#2a2d34" stroke-width="5.5" stroke-linecap="round"/>
-  </svg></span></div>
-</div>
+<div id="journey" aria-hidden="true"></div>
 
 <div class="cp" id="cp" aria-hidden="true">
   <div class="cp-h"><span class="cp-ic" id="cpIc"></span><span class="cp-n" id="cpN"></span></div>
@@ -658,15 +650,13 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   addEventListener('scroll',check,{passive:true}); check();
 })();
 
-/* ---- scroll road: bike rides across Phuket; checkpoints pop with facts + progress ---- */
+/* ---- JOURNEY: bike cutout rides a big serpentine across the WHOLE page ---- */
 (function(){
   try{
-    const road=document.getElementById('road'); if(!road) return;
+    const J=document.getElementById('journey'); if(!J) return;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const path=document.getElementById('roadPath'), doneP=document.getElementById('roadDone'), bike=document.getElementById('roadBike');
     const cp=document.getElementById('cp'), cpIc=document.getElementById('cpIc'), cpN=document.getElementById('cpN'),
           cpJ=document.getElementById('cpJ'), cpP=document.getElementById('cpP'), cpBar=document.getElementById('cpBar');
-    const len=path.getTotalLength(); doneP.style.strokeDasharray=len;
     const IC={
       store:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l1 5a2.4 2.4 0 0 1-4.7.4 2.4 2.4 0 0 1-4.6 0 2.4 2.4 0 0 1-4.6 0A2.4 2.4 0 0 1 2 9zM4 12h16v8h-6v-5H10v5H4z"/></svg>',
       cocktail:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l-8 8v6h4v2H7v-2h4v-6z"/></svg>',
@@ -678,18 +668,45 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       temple:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7h18zm-7 6h14l-2 3H7zm2 4h10v8h-3v-4h-4v4H7z"/></svg>'
     };
     const WP=[
-      {p:.11,k:'store',n:'7-Eleven',j:'Он на каждом углу — и тихо заберёт все твои деньги.'},
-      {p:.23,k:'cocktail',n:'Bangla · Патонг',j:'Опасное место — береги себя и кошелёк.'},
-      {p:.36,k:'surf',n:'Ката',j:'Сёрф, спорт и белые рубашки по вечерам.'},
-      {p:.49,k:'umbrella',n:'Лаян',j:'Тихий пляж для своих.'},
-      {p:.61,k:'banana',n:'Banana Beach',j:'Прячется за холмом — и того стоит.'},
-      {p:.74,k:'diamond',n:'Bang Tao · Laguna',j:'Тяжёлый люкс. Сюда мы и возим.'},
-      {p:.86,k:'elephant',n:'Слоны',j:'Лучшие жители острова уже ждут тебя.'},
+      {p:.09,k:'store',n:'7-Eleven',j:'Он на каждом углу — и тихо заберёт все твои деньги.'},
+      {p:.21,k:'cocktail',n:'Bangla · Патонг',j:'Опасное место — береги себя и кошелёк.'},
+      {p:.34,k:'surf',n:'Ката',j:'Сёрф, спорт и белые рубашки по вечерам.'},
+      {p:.47,k:'umbrella',n:'Лаян',j:'Тихий пляж для своих.'},
+      {p:.60,k:'banana',n:'Banana Beach',j:'Прячется за холмом — и того стоит.'},
+      {p:.73,k:'diamond',n:'Bang Tao · Laguna',j:'Тяжёлый люкс. Сюда мы и возим.'},
+      {p:.85,k:'elephant',n:'Слоны',j:'Лучшие жители острова уже ждут тебя.'},
       {p:.94,k:'temple',n:'Большой Будда',j:'Почти на вилле — держись!'}
     ];
-    const wpEls=WP.map(w=>{const s=document.createElement('span');s.className='wp';s.innerHTML=IC[w.k]||'';s.title=w.n;road.appendChild(s);return s;});
-    function place(){ const H=road.clientHeight;
-      WP.forEach((w,k)=>{const pt=path.getPointAtLength(w.p*len);wpEls[k].style.left=pt.x+'px';wpEls[k].style.top=(pt.y/1000*H)+'px';}); }
+    let path,doneP,bike,wpEls=[],len=0,startY=0,endY=0;
+    function build(){
+      if(innerWidth<=900){ J.innerHTML=''; return; }
+      const W=document.documentElement.clientWidth, H=document.documentElement.scrollHeight;
+      const hero=document.querySelector('.hero');
+      startY=(hero?hero.offsetTop+hero.offsetHeight:innerHeight)+10;
+      endY=H-170;
+      J.style.height=H+'px';
+      const L=Math.max(64,W*0.075), R=Math.min(W-64,W*0.925), C=W*0.5;
+      const span=endY-startY, seg=Math.max(4,Math.round(span/780));
+      let d='M '+C+' '+startY, px=C, py=startY;
+      for(let i=1;i<=seg;i++){
+        const y=Math.round(startY+span*i/seg);
+        const x=Math.round(i===seg?C:(i%2?L:R));
+        const my=Math.round((py+y)/2);
+        d+=' C '+px+' '+my+' '+x+' '+my+' '+x+' '+y;
+        px=x; py=y;
+      }
+      const rw=Math.max(52,Math.min(88,Math.round(W*0.052)));
+      J.innerHTML='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'
+        +'<path class="jrd" style="stroke-width:'+rw+'px" d="'+d+'"/>'
+        +'<path class="jrd-done" id="jdone" style="stroke-width:'+rw+'px" d="'+d+'"/>'
+        +'<path class="jrd-center" d="'+d+'"/></svg>'
+        +'<img id="jbike" src="img/bike_adv_cut.png" alt="">';
+      path=J.querySelector('.jrd'); doneP=document.getElementById('jdone'); bike=document.getElementById('jbike');
+      len=path.getTotalLength(); doneP.style.strokeDasharray=len; doneP.style.strokeDashoffset=len;
+      wpEls=WP.map(w=>{const s=document.createElement('span'); s.className='jwp'; s.innerHTML=IC[w.k]||''; s.title=w.n;
+        const pt=path.getPointAtLength(w.p*len); s.style.left=pt.x+'px'; s.style.top=pt.y+'px'; J.appendChild(s); return s;});
+      upd();
+    }
     let lastCp=-1, cpT;
     function showCp(k){ const w=WP[k], doneN=k+1, left=WP.length-doneN;
       cpIc.innerHTML=IC[w.k]||''; cpN.textContent=w.n; cpJ.textContent=w.j;
@@ -698,22 +715,35 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       cp.classList.add('show'); clearTimeout(cpT); cpT=setTimeout(()=>cp.classList.remove('show'),3600); }
     let tick=false;
     function upd(){ tick=false;
-      const max=document.documentElement.scrollHeight-innerHeight;
-      const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
-      const H=road.clientHeight, l=p*len;
-      const pt=path.getPointAtLength(l), pt2=path.getPointAtLength(Math.min(len,l+2));
-      const lean=Math.max(-16,Math.min(16,(pt2.x-pt.x)*6));
-      bike.style.left=pt.x+'px'; bike.style.top=(pt.y/1000*H)+'px';
-      bike.style.transform='translate(-50%,-50%) rotate('+lean+'deg)';
+      if(!path||!bike) return;
+      const target=scrollY+innerHeight*0.55;
+      const p=Math.min(1,Math.max(0,(target-startY)/(endY-startY)));
+      const l=p*len, pt=path.getPointAtLength(l), pt2=path.getPointAtLength(Math.min(len,l+8));
+      const dx=pt2.x-pt.x;
+      const ang=Math.max(-22,Math.min(22,dx*0.14));
+      const flip=dx>0.5?-1:1; /* фото смотрит влево; едем вправо — зеркалим */
+      bike.style.left=pt.x+'px'; bike.style.top=pt.y+'px';
+      bike.style.transform='translate(-50%,-62%) rotate('+(ang*flip)+'deg) scaleX('+flip+')';
       doneP.style.strokeDashoffset=len*(1-p);
-      let hit=-1; WP.forEach((w,k)=>{ if(Math.abs(w.p-p)<0.02) hit=k; });
-      if(hit>=0){ if(hit!==lastCp){ lastCp=hit; showCp(hit); } } else lastCp=-1;
+      let hit=-1; WP.forEach((w,k)=>{ if(Math.abs(w.p-p)<0.016) hit=k; });
+      if(hit>=0){ if(hit!==lastCp){ lastCp=hit; wpEls[hit]&&wpEls[hit].classList.add('hit'); showCp(hit); } } else lastCp=-1;
     }
     function onScrollRoad(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
-    place(); upd();
+    build();
     addEventListener('scroll',onScrollRoad,{passive:true});
-    addEventListener('resize',()=>{place();upd();});
-  }catch(e){/* road is decorative — never break the page */}
+    let rT; addEventListener('resize',()=>{clearTimeout(rT); rT=setTimeout(build,220);});
+    addEventListener('load',()=>setTimeout(build,300));
+  }catch(e){/* journey is decorative — never break the page */}
+})();
+
+/* hero garage bike — лёгкий 3D-параллакс за мышью */
+(function(){
+  const b=document.getElementById('garageBike'); if(!b) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  addEventListener('mousemove',e=>{
+    const dx=(e.clientX/innerWidth-.5)*2, dy=(e.clientY/innerHeight-.5)*2;
+    b.style.transform='perspective(900px) rotateY('+(dx*7)+'deg) rotateX('+(-dy*4)+'deg)';
+  },{passive:true});
 })();
 </script>
 </body>
