@@ -45,13 +45,13 @@ h1,h2,h3{font-family:var(--disp);line-height:1.06;letter-spacing:-.02em}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:800;font-size:15px;padding:15px 26px;border-radius:999px;border:1.6px solid transparent;cursor:pointer;transition:transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .2s,background .2s,color .2s,border-color .2s;white-space:nowrap}
 .btn svg{width:18px;height:18px}
 .btn.primary{background:var(--red);color:#fff;box-shadow:var(--shadow-red)}
-.btn.primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.btn.primary:hover{background:#229ED9;box-shadow:0 14px 30px -12px rgba(34,158,217,.55);transform:translateY(-2px)}
 .btn.light{background:#fff;color:var(--red)}
 .btn.light:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(0,0,0,.35)}
 .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
 .btn.ghost:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
-.btn.ghost-w{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.6);backdrop-filter:blur(4px)}
-.btn.ghost-w:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+.btn.ghost-w{background:rgba(255,255,255,.92);color:var(--ink);border-color:#fff}
+.btn.ghost-w:hover{background:#fff;transform:translateY(-2px);box-shadow:0 12px 26px -14px rgba(0,0,0,.5)}
 .btn.sm{padding:11px 18px;font-size:14px}
 .btn.wa{background:rgba(255,255,255,.92);color:#0e8a5f;border-color:#25D366}
 .btn.wa:hover{background:#25D366;color:#fff;transform:translateY(-2px)}
@@ -95,10 +95,10 @@ header.scrolled .burger span{background:var(--ink)}
 .scroll-hint::after{content:"";width:1px;height:26px;background:rgba(255,255,255,.6);animation:sd 1.8s ease-in-out infinite}
 @keyframes sd{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
 
-/* trust bar (white) */
-.trust{background:#fff;border-bottom:1px solid var(--line)}
-.trust .wrap{display:grid;grid-template-columns:repeat(6,1fr);gap:22px;padding:26px 22px}
-.trust .item{display:flex;flex-direction:column;gap:6px}
+/* trust bar (transparent glass over the map) */
+.trust{background:transparent;border-bottom:0}
+.trust .wrap{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;padding:26px 22px}
+.trust .item{display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.75);border-radius:16px;padding:14px}
 .trust .item .ic{width:38px;height:38px;border-radius:11px;background:var(--red-tint);display:grid;place-items:center}
 .trust .item svg{width:20px;height:20px;color:var(--red)}
 .trust .item b{font-size:14.5px}
@@ -115,7 +115,7 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.bike{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s,border-color .22s}
+.bike{background:rgba(255,255,255,.78);backdrop-filter:blur(9px);border:1px solid rgba(255,255,255,.85);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s,border-color .22s}
 .bike:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--red-tint-2)}
 .bike .ph{position:relative;background:var(--sand);overflow:hidden;aspect-ratio:16/10}
 .bike .ph img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s}
@@ -217,6 +217,40 @@ header{z-index:60}
 @media(prefers-reduced-motion:reduce){.confetti{display:none}}
 @keyframes bikeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @media(prefers-reduced-motion:reduce){#journey,.cp,.hero-garage img{display:none;animation:none}}
+
+/* geo chips in hero (Пхукет · Bang Tao · Лагуна · Патонг) */
+.geo-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.geo-chips span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px);border-radius:999px;padding:7px 14px;font-weight:800;font-size:13px;color:#fff;letter-spacing:.03em}
+.geo-chips svg{width:14px;height:14px;color:#ffd24a}
+
+/* garage teleport: bike fades out of hero, appears on the road */
+.hero-garage{transition:opacity .5s,transform .5s}
+.hero-garage.gone{opacity:0;transform:translateY(-14px) scale(.94);pointer-events:none}
+
+/* drive-by highlight: sections light up when the bike passes */
+.lit{box-shadow:0 0 0 3px rgba(218,33,40,.45),0 10px 34px -10px rgba(218,33,40,.5)!important;transition:box-shadow .3s}
+h2.lit{box-shadow:none!important;text-shadow:0 0 18px rgba(218,33,40,.55);color:var(--red)}
+
+/* journey scenery: palms, mountains, villa, island watermark */
+.jscene{position:absolute;transform:translate(-50%,-100%);z-index:0;opacity:.9;pointer-events:none}
+.jscene svg{display:block}
+.jvilla{position:absolute;transform:translate(-50%,-92%);z-index:1;pointer-events:none;text-align:center}
+.jvilla .vplate{display:inline-block;background:var(--red);color:#fff;font-family:var(--disp);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:8px;margin-top:6px}
+.jisle{position:absolute;left:50%;transform:translateX(-50%);z-index:0;opacity:.055;pointer-events:none}
+
+/* finish flash */
+#flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:205;transition:opacity .18s}
+#flash.on{opacity:.85}
+
+/* cars drive out of the FAQ garage */
+.cars-out{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 6px;overflow:hidden}
+.cars-out .car{opacity:0;transform:translateX(-70px)}
+.cars-out.go .car{animation:carOut .7s cubic-bezier(.2,.9,.3,1.2) forwards}
+.cars-out.go .car:nth-child(2){animation-delay:.18s}
+.cars-out.go .car:nth-child(3){animation-delay:.36s}
+@keyframes carOut{to{opacity:1;transform:none}}
+.cars-out .car{text-align:center;font-size:12px;font-weight:800;color:var(--ink-soft)}
+.cars-out .car svg{width:110px;height:52px;display:block;margin:0 auto 3px}
 
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -332,9 +366,14 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 <section class="hero">
   <div class="hero-bg"><img src="img/phuket_hero.jpg" alt="Пхукет — прибрежная дорога" fetchpriority="high"></div>
   <div class="wrap">
-    <span class="eyebrow">Пхукет · Bang Tao · Laguna · Patong</span>
-    <h1>Аренда байков и авто с <em>доставкой</em> к&nbsp;вам</h1>
-    <p class="sub">Привезём свежий байк к вилле, апартаментам или отелю. Модели 2026, честный залог, шлем в подарок, оплата в любой валюте и русскоговорящий стаф.</p>
+    <div class="geo-chips">
+      <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7zm0 9.5A2.5 2.5 0 1 0 12 6a2.5 2.5 0 0 0 0 5.5z"/></svg>Пхукет</span>
+      <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7zm0 9.5A2.5 2.5 0 1 0 12 6a2.5 2.5 0 0 0 0 5.5z"/></svg>Bang Tao</span>
+      <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7zm0 9.5A2.5 2.5 0 1 0 12 6a2.5 2.5 0 0 0 0 5.5z"/></svg>Лагуна</span>
+      <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7zm0 9.5A2.5 2.5 0 1 0 12 6a2.5 2.5 0 0 0 0 5.5z"/></svg>Патонг</span>
+    </div>
+    <h1>Свежий байк — <em>у вашей двери</em></h1>
+    <p class="sub">Выбираете модель — привозим к вилле, апартаментам или отелю. Модели 2026, честный залог, шлем в подарок, оплата в любой валюте и русскоговорящий стаф.</p>
     <div class="hero-cta">
       <a class="btn primary" href="https://t.me/apartel1" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 15.6 9.6 20c.4 0 .6-.2.8-.4l2-1.9 4.1 3c.8.4 1.3.2 1.5-.7l2.7-12.7c.3-1.1-.4-1.6-1.2-1.3L3.4 9.9c-1.1.4-1.1 1-.2 1.3l4.2 1.3 9.7-6.1c.5-.3.9-.1.5.2z"/></svg>
@@ -444,8 +483,8 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
         <div class="why-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></div><div><b>Оплата в любой валюте · шлем в подарок</b><p>Платите как удобно. Шлем всегда включён — к каждому байку.</p></div></div>
       </div>
     </div>
-    <div class="why-media reveal d1">
-      <img src="img/08_Yamaha_XMAX_2026_NEW.jpeg" alt="Yamaha XMAX 2026 — свежий парк APARTEL" loading="lazy">
+    <div class="why-media reveal d1" style="background:linear-gradient(150deg,#fdeeef,#f6f5f2);display:grid;place-items:center;padding:24px">
+      <img src="img/bike_xmax_cut.png" alt="Yamaha XMAX 2026 — свежий парк APARTEL" loading="lazy" style="filter:drop-shadow(0 18px 22px rgba(0,0,0,.28))">
     </div>
   </div>
 </section>
@@ -458,11 +497,17 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
     </div>
     <div class="faq">
       <details class="reveal"><summary>Какой залог за байк?<span class="plus">+</span></summary><p>Зависит от модели: от 2 500 ฿ за городские скутеры до 5 000 ฿ за флагманы 2026. Сумма известна заранее, возвращается при возврате байка в исходном состоянии.</p></details>
-      <details class="reveal"><summary>Вы правда привозите байк?<span class="plus">+</span></summary><p>Да. Доставляем по Bang Tao, Laguna, Patong; другие районы Пхукета — по согласованию. Напишите адрес в Telegram — подтвердим доставку и время.</p></details>
+      <details class="reveal"><summary>Как формируется цена?<span class="plus">+</span></summary><p>Цена зависит от модели и срока: чем дольше аренда — тем дешевле день (тарифы 1–3 / 3–6 / 7–11 / 12–17 / 18–23 дня и месяц). Никаких скрытых доплат: шлем бесплатно, залог известен заранее. Напишите модель и даты — сразу пришлём точную цифру.</p></details>
       <details class="reveal"><summary>Как оплатить?<span class="plus">+</span></summary><p>Принимаем оплату в любой валюте — рубли, доллары, евро, баты или картой, удобным для вас способом.</p></details>
       <details class="reveal"><summary>Есть ли выгода при аренде на месяц?<span class="plus">+</span></summary><p>Да, чем длиннее срок — тем дешевле день. По каждой модели есть тарифы на 3–6 / 7–11 / 12–17 / 18–23 дня и отдельная месячная цена.</p></details>
       <details class="reveal"><summary>Шлем входит в аренду?<span class="plus">+</span></summary><p>Да, шлем всегда бесплатный и входит в стоимость аренды любого байка.</p></details>
-      <details class="reveal"><summary>А авто у вас есть?<span class="plus">+</span></summary><p>Да, APARTEL — car &amp; bike. По авто напишите в Telegram: подберём модель, цену и доставку.</p></details>
+      <details class="reveal" id="carsFaq"><summary>А авто у вас есть?<span class="plus">+</span></summary>
+        <div class="cars-out" id="carsOut">
+          <span class="car"><svg viewBox="0 0 110 52"><path d="M8 38h94v6H8z" fill="#26282e"/><path d="M14 38c0-10 6-16 14-18l8-8h30l14 12c12 2 16 6 16 14z" fill="#DA2128"/><rect x="40" y="15" width="22" height="11" rx="2" fill="#cfe3ee"/><circle cx="30" cy="41" r="8" fill="#1a1a1a"/><circle cx="30" cy="41" r="3" fill="#9aa0a6"/><circle cx="82" cy="41" r="8" fill="#1a1a1a"/><circle cx="82" cy="41" r="3" fill="#9aa0a6"/></svg>Ford Everest</span>
+          <span class="car"><svg viewBox="0 0 110 52"><path d="M8 38h94v6H8z" fill="#26282e"/><path d="M12 38c0-8 5-13 12-15l10-9h32l12 10c11 2 16 6 16 14z" fill="#101114"/><rect x="42" y="16" width="20" height="10" rx="2" fill="#cfe3ee"/><circle cx="30" cy="41" r="8" fill="#1a1a1a"/><circle cx="30" cy="41" r="3" fill="#9aa0a6"/><circle cx="82" cy="41" r="8" fill="#1a1a1a"/><circle cx="82" cy="41" r="3" fill="#9aa0a6"/></svg>MG</span>
+          <span class="car"><svg viewBox="0 0 110 52"><path d="M8 38h94v6H8z" fill="#26282e"/><path d="M16 38c0-7 4-12 10-14l9-8h28l11 9c10 2 14 6 14 13z" fill="#8d9299"/><rect x="40" y="16" width="19" height="9" rx="2" fill="#cfe3ee"/><circle cx="30" cy="41" r="8" fill="#1a1a1a"/><circle cx="30" cy="41" r="3" fill="#9aa0a6"/><circle cx="80" cy="41" r="8" fill="#1a1a1a"/><circle cx="80" cy="41" r="3" fill="#9aa0a6"/></svg>Toyota Ativa</span>
+        </div>
+        <p>Да, APARTEL — car &amp; bike: Everest, MG, Ativa и другие. Напишите в Telegram — подберём модель, цену и доставку.</p></details>
     </div>
   </div>
 </section>
@@ -479,8 +524,10 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
           Цены и бронь в Telegram
         </a>
         <a class="btn wa" href="https://wa.me/66834083912?text=Здравствуйте!%20Интересует%20аренда%20байка%20на%20Пхукете" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4zm-2.7 4c-.2 0-.5 0-.7.4-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 4.9 4.2 2.4 1 2.9.8 3.4.8.5-.1 1.6-.7 1.9-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.4l-2-1c-.3-.1-.5-.2-.7.1l-.7 1c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.3c-.2-.5-.4-.5-.6-.5z"/></svg>WhatsApp</a>
-        <button class="btn ghost-w" data-reward type="button">🎁 Забрать бонус</button>
         <a class="btn ghost-w" href="https://www.instagram.com/apartel.rentcar/" target="_blank" rel="noopener">Instagram @apartel.rentcar</a>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn ghost-w" data-reward type="button" style="opacity:.92">🎁 Забрать бонус</button>
       </div>
     </div>
   </div>
@@ -517,6 +564,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 </div>
 
 <div id="journey" aria-hidden="true"></div>
+<div id="flash" aria-hidden="true"></div>
 
 <div class="cp" id="cp" aria-hidden="true">
   <div class="cp-h"><span class="cp-ic" id="cpIc"></span><span class="cp-n" id="cpN"></span></div>
@@ -665,19 +713,26 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       banana:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5c1 8 7 14 15 14-3-1-4-4-3-6 3 1 4-1 4-3-3 2-4-1-6 1-3 3-8 1-10-6z"/></svg>',
       diamond:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l3 6-9 12L3 9zm2.6 6h6.8L14 5h-4z"/></svg>',
       elephant:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 9a5 5 0 0 1 5-5h4a6 6 0 0 1 6 6c0 1.6 1 2 2 2s2-1 2-2h1c0 2-1.3 4-3 4-1 0-2-.5-3-1v5h-3v-4h-2v4H8v-5H6c-2.2 0-4-2-4-4z"/></svg>',
-      temple:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7h18zm-7 6h14l-2 3H7zm2 4h10v8h-3v-4h-4v4H7z"/></svg>'
+      temple:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7h18zm-7 6h14l-2 3H7zm2 4h10v8h-3v-4h-4v4H7z"/></svg>',
+      wave:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 11c2-3.4 4.6-3.4 6.6 0s4.6 3.4 6.6 0 4.7-3.4 6.8 0v4.4c-2.1-3.4-4.7-3.4-6.8 0s-4.6 3.4-6.6 0-4.6-3.4-6.6 0z"/></svg>',
+      plane:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>'
     };
+    /* маршрут с ЮГА на СЕВЕР — реальный порядок пляжей Пхукета */
     const WP=[
-      {p:.09,k:'store',n:'7-Eleven',j:'Он на каждом углу — и тихо заберёт все твои деньги.'},
-      {p:.21,k:'cocktail',n:'Bangla · Патонг',j:'Опасное место — береги себя и кошелёк.'},
-      {p:.34,k:'surf',n:'Ката',j:'Сёрф, спорт и белые рубашки по вечерам.'},
-      {p:.47,k:'umbrella',n:'Лаян',j:'Тихий пляж для своих.'},
-      {p:.60,k:'banana',n:'Banana Beach',j:'Прячется за холмом — и того стоит.'},
-      {p:.73,k:'diamond',n:'Bang Tao · Laguna',j:'Тяжёлый люкс. Сюда мы и возим.'},
-      {p:.85,k:'elephant',n:'Слоны',j:'Лучшие жители острова уже ждут тебя.'},
-      {p:.94,k:'temple',n:'Большой Будда',j:'Почти на вилле — держись!'}
+      {p:.05,k:'wave',n:'Равай',j:'Стартуем с юга! Здесь рыбаки, лодки и лучший сифуд-рынок острова.'},
+      {p:.13,k:'surf',n:'Ката',j:'Сёрф, спорт-улица и белые рубашки по вечерам.'},
+      {p:.21,k:'umbrella',n:'Карон',j:'3 км песка, который скрипит под ногами как снег.'},
+      {p:.29,k:'wave',n:'Freedom Beach',j:'Пляж Свободы — попасть можно только на лодке или пешком через джунгли.'},
+      {p:.37,k:'cocktail',n:'Патонг · Bangla',j:'Самое весёлое и опасное место — береги себя и кошелёк!'},
+      {p:.45,k:'umbrella',n:'Камала',j:'Тихая «бухта миллионеров» — виллы прячутся прямо в скалах.'},
+      {p:.53,k:'diamond',n:'Сурин',j:'Пляж миллиардеров. Без комментариев.'},
+      {p:.61,k:'diamond',n:'Bang Tao · Laguna',j:'Тяжёлый люкс: Laguna, Boat Avenue. Сюда мы и возим чаще всего.'},
+      {p:.69,k:'umbrella',n:'Лаян',j:'Тихий пляж для своих — закаты тут лучшие.'},
+      {p:.77,k:'banana',n:'Banana Beach',j:'Прячется за холмом — и того стоит.'},
+      {p:.85,k:'wave',n:'Найтон',j:'Черепахи откладывают яйца прямо на этом пляже.'},
+      {p:.93,k:'plane',n:'Май Кхао',j:'Самолёты садятся прямо над головой — держи шлем! Финиш рядом.'}
     ];
-    let path,doneP,bike,wpEls=[],len=0,startY=0,endY=0;
+    let path,doneP,bike,wpEls=[],litEls=[],len=0,startY=0,endY=0,span=0,flashed=false;
     function build(){
       if(innerWidth<=900){ J.innerHTML=''; return; }
       const W=document.documentElement.clientWidth, H=document.documentElement.scrollHeight;
@@ -705,6 +760,29 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       len=path.getTotalLength(); doneP.style.strokeDasharray=len; doneP.style.strokeDashoffset=len;
       wpEls=WP.map(w=>{const s=document.createElement('span'); s.className='jwp'; s.innerHTML=IC[w.k]||''; s.title=w.n;
         const pt=path.getPointAtLength(w.p*len); s.style.left=pt.x+'px'; s.style.top=pt.y+'px'; J.appendChild(s); return s;});
+      /* остров-карта на фоне (водяной знак) */
+      const isle='<svg width="'+Math.min(640,W*0.5)+'" viewBox="0 0 200 400"><path d="M105 8c34 18 52 48 55 86 3 34-8 56-2 88 6 34 12 60 2 96-9 33-32 66-62 62-28-4-44-34-52-66-7-30 2-52-4-84-6-34-18-52-12-88C36 66 50 24 78 10c10-5 18-6 27-2z" fill="#1a5276"/></svg>';
+      [0.18,0.55,0.86].forEach(f=>{const d=document.createElement('div');d.className='jisle';d.style.top=Math.round(startY+span*f-300)+'px';d.innerHTML=isle;J.appendChild(d);});
+      /* пальмы вдоль дороги + горы */
+      const palm='<svg width="46" height="54" viewBox="0 0 44 52"><path d="M22 20c-2 10-3 20-3 30h6c0-10-1-20-3-30z" fill="#8a6b48"/><path d="M22 20C14 12 6 12 2 16c8-1 14 2 20 6zM22 20c8-8 16-8 20-4-8-1-14 2-20 6zM22 20c-2-10 2-16 8-18-3 6-4 12-6 18zM22 20c-6-8-14-9-19-6 7 1 13 4 17 8z" fill="#2e8b57"/></svg>';
+      const mount='<svg width="150" height="70" viewBox="0 0 120 60"><path d="M0 60 30 18 48 42 66 8 96 48 120 30 120 60z" fill="#b8b2a6" opacity=".55"/></svg>';
+      const steps=Math.max(8,Math.round(span/430));
+      for(let i=0;i<=steps;i++){
+        const pl=path.getPointAtLength(len*i/steps);
+        const side=(i%2?1:-1)*(rw/2+34+Math.random()*44);
+        const d=document.createElement('div'); d.className='jscene';
+        d.style.left=Math.max(26,Math.min(W-26,pl.x+side))+'px'; d.style.top=(pl.y+18)+'px';
+        d.innerHTML=(i%5===2)?mount:palm; J.appendChild(d);
+      }
+      /* вилла на финише (парковка) */
+      const vp=path.getPointAtLength(len);
+      const v=document.createElement('div'); v.className='jvilla';
+      v.style.left=vp.x+'px'; v.style.top=(vp.y+4)+'px';
+      v.innerHTML='<svg width="128" height="90" viewBox="0 0 120 86"><path d="M10 46 60 14l50 32" fill="none" stroke="#DA2128" stroke-width="8" stroke-linecap="round"/><path d="M22 46h76v34H22z" fill="#fff" stroke="#26282e" stroke-width="3"/><rect x="52" y="58" width="16" height="22" fill="#DA2128"/><rect x="30" y="54" width="12" height="10" fill="#cfe3ee"/><rect x="78" y="54" width="12" height="10" fill="#cfe3ee"/></svg><br><span class="vplate">Ваша вилла · финиш</span>';
+      J.appendChild(v);
+      /* цели подсветки при проезде */
+      litEls=[...document.querySelectorAll('h2,.bike,.step,.district,.faq details')].map(el=>{
+        const r=el.getBoundingClientRect(); return {el,c:r.top+scrollY+r.height/2}; });
       upd();
     }
     let lastCp=-1, cpT;
@@ -725,7 +803,16 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       bike.style.left=pt.x+'px'; bike.style.top=pt.y+'px';
       bike.style.transform='translate(-50%,-62%) rotate('+(ang*flip)+'deg) scaleX('+flip+')';
       doneP.style.strokeDashoffset=len*(1-p);
-      let hit=-1; WP.forEach((w,k)=>{ if(Math.abs(w.p-p)<0.016) hit=k; });
+      /* телепорт: байк «исчезает» из гаража и появляется на дороге */
+      const g=document.querySelector('.hero-garage');
+      if(g) g.classList.toggle('gone', p>0.004);
+      bike.style.opacity = p>0.002 ? '1' : '0';
+      /* подсветка блоков при проезде байка */
+      for(const t of litEls){ t.el.classList.toggle('lit', Math.abs(t.c-pt.y)<170); }
+      /* вспышка на финише-парковке */
+      if(p>=0.995 && !flashed){ flashed=true; const f=document.getElementById('flash');
+        if(f){ f.classList.add('on'); setTimeout(()=>f.classList.remove('on'),260); } }
+      let hit=-1; WP.forEach((w,k)=>{ if(Math.abs(w.p-p)<0.013) hit=k; });
       if(hit>=0){ if(hit!==lastCp){ lastCp=hit; wpEls[hit]&&wpEls[hit].classList.add('hit'); showCp(hit); } } else lastCp=-1;
     }
     function onScrollRoad(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
@@ -734,6 +821,13 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     let rT; addEventListener('resize',()=>{clearTimeout(rT); rT=setTimeout(build,220);});
     addEventListener('load',()=>setTimeout(build,300));
   }catch(e){/* journey is decorative — never break the page */}
+})();
+
+/* FAQ «А авто у вас есть?» — машины выезжают из гаража */
+(function(){
+  const d=document.getElementById('carsFaq'), c=document.getElementById('carsOut');
+  if(!d||!c) return;
+  d.addEventListener('toggle',()=>{ if(d.open){ c.classList.remove('go'); void c.offsetWidth; c.classList.add('go'); } });
 })();
 
 /* hero garage bike — лёгкий 3D-параллакс за мышью */
