@@ -108,18 +108,20 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 .bike{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s,border-color .22s}
 .bike:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--red-tint-2)}
-.bike .ph{position:relative;background:#fff;overflow:hidden;aspect-ratio:1/1}
-.bike .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.bike .ph{position:relative;background:var(--sand);overflow:hidden;aspect-ratio:16/10}
+.bike .ph img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s}
 .bike:hover .ph img{transform:scale(1.04)}
-.bike .body{padding:16px 17px 18px;display:flex;flex-direction:column;gap:4px}
+.bike .flag{position:absolute;left:12px;top:12px;z-index:2;background:var(--red);color:#fff;font-weight:800;font-size:11px;letter-spacing:.04em;padding:5px 11px;border-radius:999px;box-shadow:var(--shadow-red)}
+.bike .body{padding:16px 17px 18px;display:flex;flex-direction:column}
 .bike h3{font-size:17px}
-.bike .who{font-size:12.5px;color:var(--muted);font-weight:700;margin-bottom:8px}
-.bike .row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px}
+.bike .who{font-size:12.5px;color:var(--muted);font-weight:700;margin:2px 0 10px}
 .bike .price{display:flex;align-items:baseline;gap:5px}
-.bike .price .num{font-family:var(--disp);font-weight:800;font-size:24px}
-.bike .price .per{font-size:12px;color:var(--muted);font-weight:700}
-.bike .dep{font-size:11.5px;color:var(--muted);font-weight:700;text-align:right}
-.bike .btn{width:100%}
+.bike .price .num{font-family:var(--disp);font-weight:800;font-size:28px;color:var(--red)}
+.bike .price .per{font-size:12.5px;color:var(--muted);font-weight:700}
+.bike .ptable{display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;margin:11px 0 15px}
+.bike .ptable span{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);font-weight:700;border-bottom:1px dashed var(--line);padding-bottom:4px}
+.bike .ptable b{color:var(--ink);font-weight:800}
+.bike .btn{width:100%;margin-top:auto}
 .fleet-note{margin-top:22px;font-size:13.5px;color:var(--muted);text-align:center}
 
 /* steps */
@@ -209,7 +211,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 <header id="hdr">
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="APARTEL car & bike">
-      <img src="img/logo_apartel_horizontal.png" alt="APARTEL car & bike">
+      <img src="img/logo_h_trim.png" alt="APARTEL car & bike">
     </a>
     <nav class="nav-links">
       <a href="#fleet">Парк и цены</a>
@@ -259,7 +261,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
   <div class="wrap">
     <div class="item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 11 1-5h12l1 5"/><path d="M4 11h16v6H4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg></div><b>Парк 2026</b><span>ADV160 и XMAX 2026 + вся линейка</span></div>
     <div class="item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div><b>Честный залог</b><span>Сумма известна заранее</span></div>
-    <div class="item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M2 13h20"/></svg></div><b>Шлем 0 ฿</b><span>К каждому байку бесплатно</span></div>
+    <div class="item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M2 13h20"/></svg></div><b>Шлем бесплатно</b><span>К каждому байку в подарок</span></div>
     <div class="item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></div><b>Любая валюта</b><span>Платите как удобно</span></div>
     <div class="item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13v8H3z"/><path d="M16 10h4l1 3v2h-5z"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></svg></div><b>Доставка</b><span>Bang Tao · Laguna · Patong</span></div>
     <div class="item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><b>Русский стаф</b><span>Понятная коммуникация</span></div>
@@ -377,7 +379,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 <footer>
   <div class="wrap foot">
     <div>
-      <div class="brand"><img src="img/logo_apartel_horizontal.png" alt="APARTEL car & bike"></div>
+      <div class="brand"><img src="img/logo_h_trim.png" alt="APARTEL car & bike"></div>
       <p>Аренда байков и авто на Пхукете с доставкой. Свежие модели 2026, честный залог, шлем в подарок, оплата в любой валюте, русскоговорящий стаф.</p>
     </div>
     <div>
@@ -408,24 +410,27 @@ document.documentElement.classList.add('js');
 document.getElementById('yr').textContent=new Date().getFullYear();
 const TG="https://t.me/apartel1";
 const BIKES=[
- {n:"Honda ADV160 2026",who:"Новинка · комфорт + проходимость",img:"01_Honda_ADV160_NEW_2026.jpeg",from:300,dep:"4 000"},
- {n:"Yamaha XMAX 2026",who:"Флагман · дальние поездки, 300cc",img:"08_Yamaha_XMAX_2026_NEW.jpeg",from:500,dep:"5 000"},
- {n:"Honda PCX 160",who:"Комфортный универсал",img:"05_Honda_PCX_160_2022-2024.jpeg",from:200,dep:"3 000"},
- {n:"Yamaha NMAX 155",who:"Для города и трассы",img:"04_Yamaha_NMAX_155_2022-2024.jpeg",from:200,dep:"3 000"},
- {n:"Honda Click 160",who:"Лёгкий и манёвренный",img:"03_Honda_Click_160_2022-2024.jpeg",from:200,dep:"2 500"},
- {n:"Yamaha Grand Filano",who:"Стильный городской скутер",img:"02_Yamaha_Grand_Filano_125cc.jpeg",from:100,dep:"2 500"},
- {n:"Honda Forza 300",who:"Премиум-комфорт, 300cc",img:"06_Honda_Forza_2020_corrected.jpeg",from:350,dep:"4 000"},
- {n:"Yamaha XMAX 300",who:"Для дальних поездок, 300cc",img:"07_Yamaha_XMAX_2020.jpeg",from:350,dep:"4 000"},
+ {n:"Honda ADV160 2026",who:"Новинка · комфорт + проходимость",img:"01_Honda_ADV160_NEW_2026_clean.jpg",from:300,d13:500,month:"7 500",dep:"4 000",new:true},
+ {n:"Yamaha XMAX 2026",who:"Флагман · дальние поездки, 300cc",img:"08_Yamaha_XMAX_2026_NEW_clean.jpg",from:500,d13:800,month:"15 000",dep:"5 000",new:true},
+ {n:"Honda PCX 160",who:"Комфортный универсал",img:"05_Honda_PCX_160_2022-2024_clean.jpg",from:200,d13:400,month:"5 500",dep:"3 000"},
+ {n:"Yamaha NMAX 155",who:"Для города и трассы",img:"04_Yamaha_NMAX_155_2022-2024_clean.jpg",from:200,d13:400,month:"5 500",dep:"3 000"},
+ {n:"Honda Click 160",who:"Лёгкий и манёвренный",img:"03_Honda_Click_160_2022-2024_clean.jpg",from:200,d13:350,month:"5 000",dep:"2 500"},
+ {n:"Yamaha Grand Filano",who:"Стильный городской скутер",img:"02_Yamaha_Grand_Filano_125cc_clean.jpg",from:100,d13:300,month:"5 500",dep:"2 500"},
+ {n:"Honda Forza 300",who:"Премиум-комфорт, 300cc",img:"06_Honda_Forza_2020_corrected_clean.jpg",from:350,d13:650,month:"9 000",dep:"4 000"},
+ {n:"Yamaha XMAX 300",who:"Для дальних поездок, 300cc",img:"07_Yamaha_XMAX_2020_clean.jpg",from:350,d13:650,month:"9 000",dep:"4 000"},
 ];
 const fg=document.getElementById('fleetGrid');
 BIKES.forEach((b,i)=>fg.insertAdjacentHTML('beforeend',`
  <article class="bike reveal ${i%4? 'd'+(i%4):''}">
-   <div class="ph"><img src="img/${b.img}" alt="${b.n}" loading="lazy"></div>
+   <div class="ph">${b.new?'<span class="flag">NEW 2026</span>':''}<img src="img/${b.img}" alt="${b.n}" loading="lazy"></div>
    <div class="body">
      <h3>${b.n}</h3><div class="who">${b.who}</div>
-     <div class="row">
-       <span class="price"><span class="num">от ${b.from} ฿</span><span class="per">/ день</span></span>
-       <span class="dep">залог<br>от ${b.dep} ฿</span>
+     <div class="price"><span class="per">от</span><span class="num">${b.from}</span><span class="per">฿ / день</span></div>
+     <div class="ptable">
+       <span>1–3 дня<b>${b.d13} ฿</b></span>
+       <span>Месяц<b>${b.month} ฿</b></span>
+       <span>Залог<b>от ${b.dep} ฿</b></span>
+       <span>Шлем<b>0 ฿</b></span>
      </div>
      <a class="btn primary sm" target="_blank" rel="noopener" href="${TG}?text=${encodeURIComponent('Здравствуйте! Интересует '+b.n+' — подскажите цену и наличие')}">Забронировать</a>
    </div>
