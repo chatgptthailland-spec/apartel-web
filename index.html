@@ -155,17 +155,29 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .district.red .maplink:hover{opacity:1}
 
 /* scroll road — bike travels from APARTEL garage to your villa */
-.road{position:fixed;left:2px;top:0;height:100vh;width:60px;z-index:30;pointer-events:none}
+.road{position:fixed;left:6px;top:0;height:100vh;width:64px;z-index:30;pointer-events:none}
 @media(max-width:1160px){.road{display:none}}
-.road svg{display:block;width:60px;height:100%}
+.road svg{display:block;width:64px;height:100%}
 .road .rd{fill:none;stroke:rgba(30,32,38,.55);stroke-width:13;stroke-linecap:round}
 .road .rd-done{fill:none;stroke:var(--red);stroke-width:13;stroke-linecap:round;opacity:.92;filter:drop-shadow(0 2px 5px rgba(218,33,40,.4))}
 .road .rd-center{fill:none;stroke:rgba(255,255,255,.9);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
 .road .rend{position:absolute;left:50%;transform:translateX(-50%);font-size:22px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));z-index:2}
 .road .rend.top{top:-2px}.road .rend.bot{bottom:-2px}
-.road .wp{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font-size:18px;z-index:2;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));cursor:default}
-.road-cap{position:absolute;left:56px;transform:translateY(-50%);background:var(--red);color:#fff;font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:999px;white-space:nowrap;opacity:0;transition:opacity .2s;box-shadow:var(--shadow-s);z-index:3}
-.road-cap.show{opacity:1}
+.road .wp{position:absolute;left:0;top:0;transform:translate(-50%,-50%);z-index:2;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--red);color:var(--red);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.28)}
+.road .wp svg{width:15px;height:15px}
+.road .rend{width:28px;height:28px;background:var(--red);color:#fff;border:2px solid #fff;border-radius:50%;display:grid;place-items:center}
+.road .rend svg{width:16px;height:16px}
+/* checkpoint popup (game HUD, bottom-right) */
+.cp{position:fixed;right:20px;bottom:20px;z-index:120;width:252px;max-width:78vw;background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:14px 16px;border-left:4px solid var(--red);transform:translateY(16px);opacity:0;pointer-events:none;transition:transform .3s cubic-bezier(.2,1,.3,1),opacity .3s}
+.cp.show{transform:none;opacity:1}
+.cp-h{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.cp-ic{width:36px;height:36px;flex:none;border-radius:11px;background:var(--red-tint);color:var(--red);display:grid;place-items:center}
+.cp-ic svg{width:21px;height:21px}
+.cp-n{font-family:var(--disp);font-weight:800;font-size:15.5px;letter-spacing:-.01em}
+.cp-j{font-size:13px;color:var(--ink-soft);line-height:1.45}
+.cp-p{margin-top:9px;font-size:11.5px;font-weight:800;color:var(--red);letter-spacing:.02em}
+.cp-bar{height:5px;border-radius:3px;background:var(--red-tint-2);margin-top:6px;overflow:hidden}
+.cp-bar i{display:block;height:100%;background:var(--red);border-radius:3px;transition:width .4s}
 
 /* reward at the villa (scroll finish) + confetti */
 .reward{position:fixed;inset:0;z-index:210;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,9,12,.62);backdrop-filter:blur(3px)}
@@ -178,12 +190,15 @@ section.blk{padding:clamp(58px,8vw,100px) 0}
 .reward-coupon{border:2px dashed var(--red);border-radius:14px;padding:14px;margin:14px 0;background:var(--red-tint)}
 .reward-coupon b{color:var(--red);font-size:15px;display:block}
 .reward-code{display:inline-block;font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:.06em;color:#fff;background:var(--red);border-radius:9px;padding:5px 18px;margin-top:8px}
+.reward-list{list-style:none;text-align:left;margin:2px 0;padding:0;display:grid;gap:7px}
+.reward-list li{position:relative;padding-left:24px;font-size:13.5px;color:var(--ink-soft);line-height:1.4}
+.reward-list li::before{content:"✓";position:absolute;left:0;top:0;color:var(--red);font-weight:800}
 .reward-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
 .reward-x{position:absolute;top:10px;right:14px;font-size:24px;color:var(--muted);cursor:pointer;background:none;border:0;line-height:1}
 .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:220;pointer-events:none;border-radius:2px;will-change:transform,opacity}
 @keyframes cfall{to{transform:translateY(104vh) rotate(720deg);opacity:.85}}
 @media(prefers-reduced-motion:reduce){.confetti{display:none}}
-#roadBike{position:absolute;left:0;top:0;width:60px;height:auto;transform:translate(-50%,-50%);border-radius:11px;border:2.5px solid #fff;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,.36);will-change:left,top;z-index:3}
+#roadBike{position:absolute;left:0;top:0;width:56px;height:auto;transform:translate(-50%,-50%);border-radius:11px;border:2.5px solid #fff;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,.36);will-change:left,top;z-index:4}
 @media(prefers-reduced-motion:reduce){#roadBike{display:none}.road .rd-done{stroke-dasharray:none!important;stroke-dashoffset:0!important;opacity:.5}}
 
 /* steps */
@@ -301,9 +316,8 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
   <div class="hero-bg"><img src="img/phuket_hero.jpg" alt="Пхукет — прибрежная дорога" fetchpriority="high"></div>
   <div class="wrap">
     <span class="eyebrow">Пхукет · Bang Tao · Laguna · Patong</span>
-    <h1>Аренда байка на&nbsp;Пхукете <em>без&nbsp;хаоса</em></h1>
-    <p class="sub">Нормальный rental-сервис, а не уличный прокат: свежие байки, понятные цены, честный залог, доставка к&nbsp;вилле и&nbsp;русскоговорящий стаф. Привезём — всё понятно — уехал.</p>
-    <p class="hero-en">Scooter &amp; car rental in Phuket — fresh bikes, fair deposit, free helmet, delivery, Russian-speaking staff.</p>
+    <h1>Аренда байков и авто с <em>доставкой</em> к&nbsp;вам</h1>
+    <p class="sub">Привезём свежий байк к вилле, апартаментам или отелю. Модели 2026, честный залог, шлем в подарок, оплата в любой валюте и русскоговорящий стаф.</p>
     <div class="hero-cta">
       <a class="btn primary" href="https://t.me/apartel1" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 15.6 9.6 20c.4 0 .6-.2.8-.4l2-1.9 4.1 3c.8.4 1.3.2 1.5-.7l2.7-12.7c.3-1.1-.4-1.6-1.2-1.3L3.4 9.9c-1.1.4-1.1 1-.2 1.3l4.2 1.3 9.7-6.1c.5-.3.9-.1.5.2z"/></svg>
@@ -444,6 +458,7 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
           Цены и бронь в Telegram
         </a>
         <a class="btn wa" href="https://wa.me/66834083912?text=Здравствуйте!%20Интересует%20аренда%20байка%20на%20Пхукете" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4zm-2.7 4c-.2 0-.5 0-.7.4-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 4.9 4.2 2.4 1 2.9.8 3.4.8.5-.1 1.6-.7 1.9-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.4l-2-1c-.3-.1-.5-.2-.7.1l-.7 1c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.3c-.2-.5-.4-.5-.6-.5z"/></svg>WhatsApp</a>
+        <button class="btn ghost-w" data-reward type="button">🎁 Забрать бонус</button>
         <a class="btn ghost-w" href="https://www.instagram.com/apartel.rentcar/" target="_blank" rel="noopener">Instagram @apartel.rentcar</a>
       </div>
     </div>
@@ -481,28 +496,40 @@ footer{background:#fff;color:var(--ink);padding:60px 0 120px;border-top:1px soli
 </div>
 
 <div class="road" id="road" aria-hidden="true">
-  <span class="rend top" title="Гараж APARTEL">🏍️</span>
-  <svg viewBox="0 0 60 1000" preserveAspectRatio="none">
-    <path class="rd" id="roadPath" d="M35 10 C 27 120 43 240 35 360 C 27 480 43 600 35 720 C 27 840 42 930 35 990"/>
-    <path class="rd-done" id="roadDone" d="M35 10 C 27 120 43 240 35 360 C 27 480 43 600 35 720 C 27 840 42 930 35 990"/>
-    <path class="rd-center" d="M35 10 C 27 120 43 240 35 360 C 27 480 43 600 35 720 C 27 840 42 930 35 990"/>
+  <span class="rend top" title="Гараж APARTEL"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 10 12 4l9 6v10h-4v-6H7v6H3z"/></svg></span>
+  <svg viewBox="0 0 64 1000" preserveAspectRatio="none">
+    <path class="rd" id="roadPath" d="M34 10 C 24 120 44 240 34 360 C 24 480 44 600 34 720 C 24 840 43 930 34 990"/>
+    <path class="rd-done" id="roadDone" d="M34 10 C 24 120 44 240 34 360 C 24 480 44 600 34 720 C 24 840 43 930 34 990"/>
+    <path class="rd-center" d="M34 10 C 24 120 44 240 34 360 C 24 480 44 600 34 720 C 24 840 43 930 34 990"/>
   </svg>
-  <span class="rend bot" title="Ваша вилла">🏝️</span>
+  <span class="rend bot" title="Ваша вилла"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 11h3v9h6v-5h2v5h6v-9h3z"/></svg></span>
   <img id="roadBike" src="img/01_Honda_ADV160_NEW_2026_clean.jpg" alt="">
+</div>
+
+<div class="cp" id="cp" aria-hidden="true">
+  <div class="cp-h"><span class="cp-ic" id="cpIc"></span><span class="cp-n" id="cpN"></span></div>
+  <div class="cp-j" id="cpJ"></div>
+  <div class="cp-p" id="cpP"></div>
+  <div class="cp-bar"><i id="cpBar"></i></div>
 </div>
 
 <div class="reward" id="reward" aria-hidden="true">
   <div class="reward-card">
     <button class="reward-x" id="rewardX" aria-label="Закрыть">×</button>
-    <div class="em">🎉🏝️</div>
-    <h3>Вы доехали до виллы!</h3>
-    <p>Спасибо, что внимательно изучили наш сайт 🙌</p>
+    <div class="em">🎉</div>
+    <h3>Поздравляем — ты готов покорить Пхукет!</h3>
+    <p>Спасибо, что доехал с нами до самой виллы.</p>
     <div class="reward-coupon">
-      <b>🎟 Купон: бесплатная доставка байка до вашей виллы</b>
+      <b>Купон: бесплатная доставка байка до вашей виллы</b>
       <span class="reward-code">ВИЛЛА</span>
       <p style="margin:9px 0 0">Назовите кодовое слово в Telegram или WhatsApp</p>
     </div>
-    <p>🎁 В подарок — гайд <b>«Пхукет за 3 дня»</b>: лучшие места, готовый маршрут и скидки от наших партнёров.</p>
+    <ul class="reward-list">
+      <li><b>Гайд-карта «Пхукет за 3 дня»</b> — готовый маршрут и лучшие места</li>
+      <li>Скрытые пляжи, которых нет в путеводителях</li>
+      <li>Скидки от наших сервисов-партнёров</li>
+      <li><b>Спец-бонус:</b> бесплатный тур-обзор недвижимости Пхукета за 1 день</li>
+    </ul>
     <div class="reward-btns">
       <a class="btn primary sm" href="https://t.me/apartel1?text=Здравствуйте!%20Изучил%20сайт%20—%20хочу%20купон%20ВИЛЛА%20(бесплатная%20доставка)%20и%20гайд%20«Пхукет%20за%203%20дня»" target="_blank" rel="noopener">Забрать в Telegram</a>
       <a class="btn wa sm" href="https://wa.me/66834083912?text=Здравствуйте!%20Хочу%20купон%20ВИЛЛА%20и%20гайд%20по%20Пхукету" target="_blank" rel="noopener">WhatsApp</a>
@@ -588,57 +615,85 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* ---- scroll road: 🛵 rides from APARTEL garage (top) to your villa (bottom) ---- */
-(function(){
-  const road=document.getElementById('road'); if(!road) return;
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const path=document.getElementById('roadPath'), done=document.getElementById('roadDone'), bike=document.getElementById('roadBike');
-  const len=path.getTotalLength(); done.style.strokeDasharray=len;
-  /* landmark stops along the journey across Phuket (наведи — название) */
-  const WP=[{p:.11,i:'🏪',t:'7-Eleven по пути'},{p:.23,i:'🌃',t:'Бангла · Патонг — веселье'},
-            {p:.36,i:'🏄',t:'Ката — сёрф и спорт-стрит'},{p:.49,i:'🏖️',t:'Лаян — тихий пляж'},
-            {p:.61,i:'🍌',t:'Banana Beach'},{p:.74,i:'💎',t:'Bang Tao — люкс, Laguna'},
-            {p:.86,i:'🐘',t:'Слоны'},{p:.94,i:'🛕',t:'Храм — почти на вилле'}];
-  const wpEls=WP.map(w=>{const s=document.createElement('span');s.className='wp';s.textContent=w.i;s.title=w.t;road.appendChild(s);return s;});
-  function place(){ const H=road.clientHeight;
-    WP.forEach((w,k)=>{const pt=path.getPointAtLength(w.p*len);wpEls[k].style.left=pt.x+'px';wpEls[k].style.top=(pt.y/1000*H)+'px';}); }
-  let tick=false;
-  function upd(){
-    tick=false;
-    const max=document.documentElement.scrollHeight-innerHeight;
-    const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
-    const H=road.clientHeight, l=p*len;
-    const pt=path.getPointAtLength(l), pt2=path.getPointAtLength(Math.min(len,l+2));
-    const lean=Math.max(-16,Math.min(16,(pt2.x-pt.x)*6));
-    bike.style.left=pt.x+'px'; bike.style.top=(pt.y/1000*H)+'px';
-    bike.style.transform=`translate(-50%,-50%) rotate(${lean}deg)`;
-    done.style.strokeDashoffset=len*(1-p);
-  }
-  function onScrollRoad(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
-  place(); upd();
-  addEventListener('scroll',onScrollRoad,{passive:true});
-  addEventListener('resize',()=>{place();upd();});
-})();
-
-/* ---- reward at the villa: confetti + free-delivery coupon (once per session) ---- */
+/* ---- reward at the villa: confetti + bonus. Runs FIRST so nothing can block it. ---- */
 (function(){
   const rw=document.getElementById('reward'); if(!rw) return;
-  let shown=sessionStorage.getItem('apartel_reward')==='1';
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function confetti(){
-    if(reduce) return;
+  let auto=sessionStorage.getItem('apartel_reward')==='1';
+  function confetti(){ if(reduce) return;
     const cs=['#DA2128','#ffffff','#f0b429','#25D366','#111'];
     for(let k=0;k<95;k++){ const s=document.createElement('div'); s.className='confetti';
       s.style.left=Math.random()*100+'vw'; s.style.background=cs[k%cs.length];
-      s.style.animation=`cfall ${1.5+Math.random()*1.5}s ${Math.random()*.5}s ease-in forwards`;
-      document.body.appendChild(s); setTimeout(()=>s.remove(),3400); }
-  }
-  function open(){ if(shown)return; shown=true; sessionStorage.setItem('apartel_reward','1'); rw.classList.add('open'); confetti(); }
+      s.style.animation='cfall '+(1.5+Math.random()*1.5)+'s '+(Math.random()*.5)+'s ease-in forwards';
+      document.body.appendChild(s); setTimeout(()=>s.remove(),3400); } }
+  function open(){ rw.classList.add('open'); confetti(); }
   function close(){ rw.classList.remove('open'); }
+  window.openReward=open;
   document.getElementById('rewardX').addEventListener('click',close);
   rw.addEventListener('click',e=>{ if(e.target===rw) close(); });
   addEventListener('keydown',e=>{ if(e.key==='Escape'&&rw.classList.contains('open')) close(); });
-  function check(){ const max=document.documentElement.scrollHeight-innerHeight; if(max>0 && scrollY/max>=.985) open(); }
+  document.querySelectorAll('[data-reward]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();open();}));
+  function check(){ const max=document.documentElement.scrollHeight-innerHeight;
+    if(!auto && max>0 && scrollY/max>=.98){ auto=true; sessionStorage.setItem('apartel_reward','1'); open(); } }
   addEventListener('scroll',check,{passive:true}); check();
+})();
+
+/* ---- scroll road: bike rides across Phuket; checkpoints pop with facts + progress ---- */
+(function(){
+  try{
+    const road=document.getElementById('road'); if(!road) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const path=document.getElementById('roadPath'), doneP=document.getElementById('roadDone'), bike=document.getElementById('roadBike');
+    const cp=document.getElementById('cp'), cpIc=document.getElementById('cpIc'), cpN=document.getElementById('cpN'),
+          cpJ=document.getElementById('cpJ'), cpP=document.getElementById('cpP'), cpBar=document.getElementById('cpBar');
+    const len=path.getTotalLength(); doneP.style.strokeDasharray=len;
+    const IC={
+      store:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l1 5a2.4 2.4 0 0 1-4.7.4 2.4 2.4 0 0 1-4.6 0 2.4 2.4 0 0 1-4.6 0A2.4 2.4 0 0 1 2 9zM4 12h16v8h-6v-5H10v5H4z"/></svg>',
+      cocktail:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l-8 8v6h4v2H7v-2h4v-6z"/></svg>',
+      surf:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C11 5 4.5 11.5 3 21c9.5-1.5 16-8 17.5-17.5zM8 16l8-8"/></svg>',
+      umbrella:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 1 10 9H2A10 10 0 0 1 12 2zm-1 9h2v8a2 2 0 0 1-4 0h2z"/></svg>',
+      banana:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5c1 8 7 14 15 14-3-1-4-4-3-6 3 1 4-1 4-3-3 2-4-1-6 1-3 3-8 1-10-6z"/></svg>',
+      diamond:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l3 6-9 12L3 9zm2.6 6h6.8L14 5h-4z"/></svg>',
+      elephant:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 9a5 5 0 0 1 5-5h4a6 6 0 0 1 6 6c0 1.6 1 2 2 2s2-1 2-2h1c0 2-1.3 4-3 4-1 0-2-.5-3-1v5h-3v-4h-2v4H8v-5H6c-2.2 0-4-2-4-4z"/></svg>',
+      temple:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7h18zm-7 6h14l-2 3H7zm2 4h10v8h-3v-4h-4v4H7z"/></svg>'
+    };
+    const WP=[
+      {p:.11,k:'store',n:'7-Eleven',j:'Он на каждом углу — и тихо заберёт все твои деньги.'},
+      {p:.23,k:'cocktail',n:'Bangla · Патонг',j:'Опасное место — береги себя и кошелёк.'},
+      {p:.36,k:'surf',n:'Ката',j:'Сёрф, спорт и белые рубашки по вечерам.'},
+      {p:.49,k:'umbrella',n:'Лаян',j:'Тихий пляж для своих.'},
+      {p:.61,k:'banana',n:'Banana Beach',j:'Прячется за холмом — и того стоит.'},
+      {p:.74,k:'diamond',n:'Bang Tao · Laguna',j:'Тяжёлый люкс. Сюда мы и возим.'},
+      {p:.86,k:'elephant',n:'Слоны',j:'Лучшие жители острова уже ждут тебя.'},
+      {p:.94,k:'temple',n:'Большой Будда',j:'Почти на вилле — держись!'}
+    ];
+    const wpEls=WP.map(w=>{const s=document.createElement('span');s.className='wp';s.innerHTML=IC[w.k]||'';s.title=w.n;road.appendChild(s);return s;});
+    function place(){ const H=road.clientHeight;
+      WP.forEach((w,k)=>{const pt=path.getPointAtLength(w.p*len);wpEls[k].style.left=pt.x+'px';wpEls[k].style.top=(pt.y/1000*H)+'px';}); }
+    let lastCp=-1, cpT;
+    function showCp(k){ const w=WP[k], doneN=k+1, left=WP.length-doneN;
+      cpIc.innerHTML=IC[w.k]||''; cpN.textContent=w.n; cpJ.textContent=w.j;
+      cpP.textContent='Точка '+doneN+' из '+WP.length+(left>0?' · осталось '+left+' до финиша':' · финиш рядом!');
+      cpBar.style.width=Math.round(doneN/WP.length*100)+'%';
+      cp.classList.add('show'); clearTimeout(cpT); cpT=setTimeout(()=>cp.classList.remove('show'),3600); }
+    let tick=false;
+    function upd(){ tick=false;
+      const max=document.documentElement.scrollHeight-innerHeight;
+      const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+      const H=road.clientHeight, l=p*len;
+      const pt=path.getPointAtLength(l), pt2=path.getPointAtLength(Math.min(len,l+2));
+      const lean=Math.max(-16,Math.min(16,(pt2.x-pt.x)*6));
+      bike.style.left=pt.x+'px'; bike.style.top=(pt.y/1000*H)+'px';
+      bike.style.transform='translate(-50%,-50%) rotate('+lean+'deg)';
+      doneP.style.strokeDashoffset=len*(1-p);
+      let hit=-1; WP.forEach((w,k)=>{ if(Math.abs(w.p-p)<0.02) hit=k; });
+      if(hit>=0){ if(hit!==lastCp){ lastCp=hit; showCp(hit); } } else lastCp=-1;
+    }
+    function onScrollRoad(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
+    place(); upd();
+    addEventListener('scroll',onScrollRoad,{passive:true});
+    addEventListener('resize',()=>{place();upd();});
+  }catch(e){/* road is decorative — never break the page */}
 })();
 </script>
 </body>
